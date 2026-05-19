@@ -11,9 +11,14 @@ def get_audio_url(video_id):
             'quiet': True,
             'no_warnings': True,
             'format': 'bestaudio',
+            'extract_flat': 'in_playlist',  # Tells yt-dlp to not resolve all formats
+            'skip_download': True,           # Avoids downloading any data
+            'ignoreerrors': True,            # Prevents parsing errors from causing memory spikes
+            'max_entries': 1,                # Limits entries for playlists
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
+            # Find the best audio format (as a fallback, you can still use this)
             formats = info.get('formats', [])
             audio_url = None
             for f in formats:
