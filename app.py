@@ -8,12 +8,15 @@ def get_audio_url(video_id):
     url = f'https://www.youtube.com/watch?v={video_id}'
     ydl_opts = {
         'quiet': True,
-        'no_warnings': True,
-        'format': 'bestaudio/best',
-        'cookiefile': 'cookies.txt',
-        'extract_flat': True,           # Do not fetch full video info – saves memory
-        'skip_download': True,
-        'ignoreerrors': True,
+        'extract_flat': True,
+        'force_generic_extractor': False,
+        'format': 'bestaudio',
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android_music'],
+                'player_skip': ['configs', 'webpage'],
+            }
+        }
     }
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
