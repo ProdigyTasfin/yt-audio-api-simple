@@ -9,7 +9,8 @@ def get_audio_url(video_id):
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
-        'format': 'bestaudio',
+        'format': 'bestaudio/best',
+        'cookiefile': 'cookies.txt',
         'extract_flat': True,           # Do not fetch full video info – saves memory
         'skip_download': True,
         'ignoreerrors': True,
